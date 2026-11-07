@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TicketEase - User Dashboard</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #111318;
+    color: #f5f5f5;
+}
+
+header {
+    background: #191c23;
+    padding: 20px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #30343d;
+}
+
+.logo {
+    color: #e7b75b;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+nav a {
+    color: #ddd;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #e7b75b;
+}
+
+.hero {
+    padding: 55px 6% 35px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 12px;
+}
+
+.hero h1 span {
+    color: #e7b75b;
+}
+
+.hero p {
+    color: #aaa;
+    font-size: 16px;
+}
+
+.section {
+    padding: 20px 6% 55px;
+}
+
+.section-heading {
+    font-size: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.booking-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.booking-card {
+    background: #1c2029;
+    border: 1px solid #343946;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    min-height: 390px;
+}
+
+.booking-card:hover {
+    transform: translateY(-7px);
+    border-color: #e7b75b;
+    box-shadow: 0 8px 25px #0008;
+}
+
+.card-image {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 75px;
+}
+
+.movie-image {
+    background: linear-gradient(135deg, #482b36, #171923);
+}
+
+.food-image {
+    background: linear-gradient(135deg, #59402a, #171923);
+}
+
+.transport-image {
+    background: linear-gradient(135deg, #24434a, #171923);
+}
+
+.card-content {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-content h2 {
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.card-content p {
+    color: #aaa;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    flex: 1;
+}
+
+.card-content button {
+    width: 100%;
+    background: #e7b75b;
+    color: #171717;
+    border: none;
+    padding: 13px;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.card-content button:hover {
+    background: #f3cc7d;
+}
+
+.content-section {
+    display: none;
+    padding: 30px 6% 60px;
+}
+
+.content-section.active {
+    display: block;
+}
+
+.content-section h2 {
+    margin-bottom: 22px;
+    color: #e7b75b;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px;
+}
+
+.item-card {
+    background: #1c2029;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #343946;
+}
+
+.item-card h3 {
+    margin-bottom: 10px;
+}
+
+.item-card p {
+    color: #e7b75b;
+    margin-bottom: 15px;
+}
+
+.item-card button, .primary-btn {
+    background: #e7b75b;
+    color: #171717;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.item-card button:hover, .primary-btn:hover {
+    background: #f3cc7d;
+}
+
+form {
+    background: #1c2029;
+    border: 1px solid #343946;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 600px;
+}
+
+form label {
+    display: block;
+    margin: 14px 0 7px;
+    color: #ddd;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 12px;
+    background: #111318;
+    color: white;
+    border: 1px solid #454b58;
+    border-radius: 6px;
+}
+
+form button {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.booking-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+}
+
+.booking-entry {
+    background: #1c2029;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #343946;
+    line-height: 1.8;
+}
+
+.empty {
+    color: #aaa;
+    padding: 20px;
+    background: #1c2029;
+    border-radius: 10px;
+}
+
+.back-btn {
+    margin-bottom: 20px;
+    background: #343946;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+footer {
+    background: #191c23;
+    padding: 22px;
+    text-align: center;
+    color: #888;
+    border-top: 1px solid #30343d;
+}
+
+@media(max-width: 850px) {
+    .booking-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width: 600px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    nav a {
+        margin: 0 8px;
+    }
+    .booking-container {
+        grid-template-columns: 1fr;
+    }
+    .hero h1 {
+        font-size: 29px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">TicketEase</div>
+    <nav>
+        <a href="#" onclick="showHome()">Home</a>
+        <a href="#" onclick="showBookings()">My Bookings</a>
+    </nav>
+</header>
+
+<div id="homePage">
+    <section class="hero">
+        <h1>Book Your <span>Experience</span></h1>
+        <p>Movies, delicious food and transportation — everything in one place.</p>
+    </section>
+
+    <section class="section">
+        <h2 class="section-heading">Explore Our Services</h2>
+
+        <div class="booking-container">
+
+            <div class="booking-card">
+                <div class="card-image movie-image">🎬</div>
+                <div class="card-content">
+                    <h2>Movie Booking</h2>
+                    <p>Explore exciting movies, select your favourite show and book your tickets easily.</p>
+                    <button onclick="showSection('movieSection')">Book Movies</button>
+                </div>
+            </div>
+
+            <div class="booking-card">
+                <div class="card-image food-image">🍽️</div>
+                <div class="card-content">
+                    <h2>Food Booking</h2>
+                    <p>Choose your favourite meals, snacks and delicious food items.</p>
+                    <button onclick="showSection('foodSection')">Order Food</button>
+                </div>
+            </div>
+
+            <div class="booking-card">
+                <div class="card-image transport-image">🚘</div>
+                <div class="card-content">
+                    <h2>Transportation</h2>
+                    <p>Book a car, bus, train, auto, aeroplane or bike for your journey.</p>
+                    <button onclick="showSection('transportSection')">Book Transport</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<section class="content-section" id="movieSection">
+    <button class="back-btn" onclick="showHome()">← Back to Home</button>
+    <h2>🎬 Available Movies</h2>
+    <div class="items-grid" id="movieItems"></div>
+</section>
+
+<section class="content-section" id="foodSection">
+    <button class="back-btn" onclick="showHome()">← Back to Home</button>
+    <h2>🍽️ Food Menu</h2>
+    <div class="items-grid" id="foodItems"></div>
+</section>
+
+<section class="content-section" id="transportSection">
+    <button class="back-btn" onclick="showHome()">← Back to Home</button>
+    <h2>🚘 Transportation Options</h2>
+    <div class="items-grid" id="transportItems"></div>
+</section>
+
+<section class="content-section" id="checkoutSection">
+    <button class="back-btn" onclick="showHome()">← Back to Home</button>
+    <h2>Complete Your Booking</h2>
+
+    <form id="bookingForm">
+        <label>Full Name</label>
+        <input type="text" id="customerName" required>
+
+        <label>Email</label>
+        <input type="email" id="customerEmail" required>
+
+        <label>Phone Number</label>
+        <input type="tel" id="customerPhone" required>
+
+        <div id="transportFields" style="display:none">
+            <label>From</label>
+            <input type="text" id="fromPlace">
+
+            <label>To</label>
+            <input type="text" id="toPlace">
+
+            <label>Travel Date</label>
+            <input type="date" id="travelDate">
+        </div>
+
+        <div id="movieFields" style="display:none">
+            <label>Show Time</label>
+            <select id="showTime">
+                <option>10:00 AM</option>
+                <option>1:00 PM</option>
+                <option>4:00 PM</option>
+                <option>7:00 PM</option>
+            </select>
+        </div>
+
+        <label>Quantity</label>
+        <input type="number" id="quantity" min="1" value="1" required>
+
+        <label>Payment Method</label>
+        <select id="paymentMethod" required>
+            <option value="">Select Payment</option>
+            <option>UPI (Demo)</option>
+            <option>Credit/Debit Card (Demo)</option>
+            <option>Net Banking (Demo)</option>
+            <option>Cash</option>
+        </select>
+
+        <button class="primary-btn" type="submit">Confirm Booking</button>
+    </form>
+</section>
+
+<section class="content-section" id="myBookingsSection">
+    <h2>📋 My Bookings</h2>
+    <div class="booking-list" id="myBookingList"></div>
+</section>
+
+<footer>
+    © 2026 TicketEase | Online Ticket Booking System
+</footer>
+
+<script>
+const food = [
+    {name:"Veg Meals", price:120},
+    {name:"Masala Dosa", price:80},
+    {name:"Chicken Biryani", price:180},
+    {name:"Fried Rice", price:130},
+    {name:"Idli Vada", price:65},
+    {name:"Samosa", price:55}
+];
+
+const movies = [
+    {name:"The Last Journey", price:180},
+    {name:"City Lights", price:160},
+    {name:"Mission Galaxy", price:220},
+    {name:"Laugh Out Loud", price:150},
+    {name:"Mystery House", price:190},
+    {name:"Kingdom of Dreams", price:200}
+];
+
+const transport = [
+    {name:"Car", price:450},
+    {name:"Bus", price:250},
+    {name:"Train", price:180},
+    {name:"Auto", price:100},
+    {name:"Aeroplane", price:2500},
+    {name:"Bike", price:150}
+];
+
+let selectedItem = {};
+let selectedType = "";
+
+function showHome() {
+    document.getElementById("homePage").style.display = "block";
+    document.querySelectorAll(".content-section").forEach(s => s.classList.remove("active"));
+}
+
+function showSection(id) {
+    document.getElementById("homePage").style.display = "none";
+    document.querySelectorAll(".content-section").forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+function createItems(items, containerId, type) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
+
+    items.forEach(item => {
+        container.innerHTML += `
+            <div class="item-card">
+                <h3>${item.name}</h3>
+                <p>₹${item.price}</p>
+                <button onclick="selectItem('${type}','${item.name}',${item.price})">
+                    Book Now
+                </button>
+            </div>
+        `;
+    });
+}
+
+function selectItem(type, name, price) {
+    selectedType = type;
+    selectedItem = {name, price};
+
+    document.getElementById("transportFields").style.display =
+        type === "Transport" ? "block" : "none";
+
+    document.getElementById("movieFields").style.display =
+        type === "Movie" ? "block" : "none";
+
+    showSection("checkoutSection");
+}
+
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const quantity = Number(document.getElementById("quantity").value);
+
+    const booking = {
+        id: "BK" + Date.now(),
+        name: document.getElementById("customerName").value,
+        email: document.getElementById("customerEmail").value,
+        phone: document.getElementById("customerPhone").value,
+        type: selectedType,
+        item: selectedItem.name,
+        quantity: quantity,
+        amount: selectedItem.price * quantity,
+        details: selectedType === "Transport"
+            ? document.getElementById("fromPlace").value + " to " +
+              document.getElementById("toPlace").value
+            : selectedType === "Movie"
+            ? document.getElementById("showTime").value
+            : "Food Order",
+        payment: document.getElementById("paymentMethod").value,
+        status: "Confirmed",
+        date: new Date().toLocaleString()
+    };
+
+    let bookings = JSON.parse(localStorage.getItem("ticketease_bookings")) || [];
+    bookings.push(booking);
+    localStorage.setItem("ticketease_bookings", JSON.stringify(bookings));
+
+    alert("Booking Successful!");
+
+    this.reset();
+    showBookings();
+});
+
+function showBookings() {
+    document.getElementById("homePage").style.display = "none";
+    document.querySelectorAll(".content-section").forEach(s => s.classList.remove("active"));
+
+    document.getElementById("myBookingsSection").classList.add("active");
+
+    const bookings = JSON.parse(localStorage.getItem("ticketease_bookings")) || [];
+    const container = document.getElementById("myBookingList");
+
+    if (bookings.length === 0) {
+        container.innerHTML = '<p class="empty">No bookings yet. Start exploring and book something!</p>';
+        return;
+    }
+
+    container.innerHTML = bookings.map(b => `
+        <div class="booking-entry">
+            <h3>${b.type} Booking</h3>
+            <p><b>Booking ID:</b> ${b.id}</p>
+            <p><b>Item:</b> ${b.item}</p>
+            <p><b>Quantity:</b> ${b.quantity}</p>
+            <p><b>Amount:</b> ₹${b.amount}</p>
+            <p><b>Details:</b> ${b.details}</p>
+            <p><b>Payment:</b> ${b.payment}</p>
+            <p><b>Status:</b> ${b.status}</p>
+        </div>
+    `).join("");
+}
+
+createItems(movies, "movieItems", "Movie");
+createItems(food, "foodItems", "Food");
+createItems(transport, "transportItems", "Transport");
+</script>
+
+</body>
+</html>
